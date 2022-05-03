@@ -1,0 +1,16 @@
+<% if comment.user != nil %> 
+  <li>
+    <%= link_to gravatar_for(comment.user, size: 50), comment.user %>
+    <span class="user"><%= link_to comment.user.name, comment.user %></span>
+    <span class="content">
+	  <%= comment.content %>
+    </span>
+    <span class="timestamp">
+      Posted <%= comment.created_at %> 
+      <% if current_user == comment.user %>
+	    <%= link_to "delete", micropost_comment_path(comment.micropost, comment), method: :delete, 
+	                          data: { confirm: "You sure?" }, remote: :true, class: "destroy-comment" %>
+	  <% end %>
+    </span>
+  </li>
+<% end %>
