@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   rolify
+  has_many :likes, dependent: :destroy
   has_many :microposts, dependent: :destroy
+  has_many :comments, dependent: :destroy
   has_many :active_relationships, class_name:  "Relationship",
                                   foreign_key: "follower_id",
                                   dependent:   :destroy
@@ -18,7 +20,10 @@ class User < ApplicationRecord
   validates :name, presence: true, length: {maximum: 50}
 
   def feed
-    Micropost.where("user_id = ?", id)
+    following_ids = "SELECT followed_id FROM relationships
+                     WHERE  follower_id = :user_id"
+    Micropost.where("user_id IN (#{following_ids})
+                     OR user_id = :user_id", user_id: id)
   end
 
   def follow(other_user)
