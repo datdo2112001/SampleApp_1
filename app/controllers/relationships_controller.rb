@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RelationshipsController < ApplicationController
   before_action :authenticate_user!
 
@@ -18,5 +20,4 @@ class RelationshipsController < ApplicationController
       format.js
     end
   end
-
 end

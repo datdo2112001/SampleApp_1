@@ -6,9 +6,6 @@ class Ability
   def initialize(user)
     can :read, :all
 
-    if user.has_role? :admin
-      can :manage, :all
-    end
-    
+    can :manage, :all if user.has_role? :admin
   end
 end

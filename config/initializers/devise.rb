@@ -310,6 +310,8 @@ Devise.setup do |config|
   # config.sign_in_after_change_password = true
 
   config.scoped_views = true
-  config.omniauth :facebook, "335701521735269", "66a3b1a316305c1290c51fdc58e2eef2", scope: 'email', info_fields: 'email,name', callback_url: 'https://127.0.0.1:3000/auth/facebook/callback'
-  config.omniauth :google_oauth2, "306970609762-fv1rb1nva5pjmu198i2fmi5qhb81h0r9.apps.googleusercontent.com", "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", scope: 'email', info_fields: 'email'
+  config.omniauth :facebook, '335701521735269', '66a3b1a316305c1290c51fdc58e2eef2', scope: 'email',
+                                                                                    info_fields: 'email,name', callback_url: 'https://127.0.0.1:3000/auth/facebook/callback'
+  config.omniauth :google_oauth2, '306970609762-fv1rb1nva5pjmu198i2fmi5qhb81h0r9.apps.googleusercontent.com',
+                  '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', scope: 'email', info_fields: 'email'
 end
