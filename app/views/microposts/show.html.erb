@@ -1,0 +1,88 @@
+<div>
+  <%= link_to gravatar_for(@micropost.user, size: 50), @micropost.user %>
+  <span class="user"><%= link_to @micropost.user.name, @micropost.user %></span>
+</div>
+<div>
+  <span class="timestamp">
+	Posted <%= @micropost.created_at %>.
+  </span>
+</div>
+<br>
+<div>
+	<span class="content">
+	<%= @micropost.content %>
+	<%= image_tag @micropost.display_image if @micropost.image.attached? %>
+  </span>
+</div>
+<br>
+<div>
+	<b> Likes:<%= @micropost.likes.count %> Comments:<%= @micropost.comments.count %> </b>
+</div>
+<div>
+<span>
+	<% like = current_user.likes.find_by(micropost: @micropost) %>
+	<% if like.nil? %>
+	  <form action="/likes" method="post" id="likeform">
+		  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+		  <input type="hidden" name="like[micropost_id]" value="<%= @micropost.id %>">
+	  </form>
+	  <button type="submit" form="likeform" value="Submit" id="likebtn" style="color:black;"> Like <i class="fa fa-thumbs-up"></i></button>
+	<% else %>
+	  <form action="<%= like_path(like) %>" method="post" id="unlikeform">
+		  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+		  <input type="hidden" name="_method" value="DELETE">
+	  </form>
+	  <button type="submit" form="unlikeform" value="Submit" id="likebtn" style="color:blue;"> Like <i class="fa fa-thumbs-up"></i></button>
+	<% end %>
+  <button id="btn1"> Add Comment <i class='far fa-comment-alt'></i></button>
+</span>
+<div class="card my-1" id="commentbox"> 
+  <div class="card-body">
+    <%= form_for [@micropost, @micropost.comments.build], :remote => true do |f| %>
+      <div class="form-group">
+        <%= f.label 'New comment' %>
+        <%= f.text_area :content, class: 'form-control' %>
+      </div>
+      <%= f.submit 'Submit', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>
+</div>
+<br>
+<div>
+	<b> Comments </b>
+	<% if @micropost.comments.count != 0 %>
+	  <ol class="microposts">
+	  	<p id="comments"></p>
+      <%= render @micropost.comments %>
+    </ol>
+  <% end %>
+</div>
+<script>
+$(document).ready(function(){
+	var signal = false;
+	var like = false;
+	$("#commentbox").hide();
+  $("#btn1").click(function(){
+    if (signal == false) {
+    	$("#commentbox").show();
+    	signal = true;
+    } else {
+    	$("#commentbox").hide();
+    	signal = false;
+    }
+  });
+
+  $("#likebtn").click(function(){
+    if (like == false) {
+    	document.getElementById("likebtn").style.color = "blue";
+    	like = true;
+    } else {
+    	document.getElementById("likebtn").style.color = "black";
+    	like = false;
+    }
+  });
+
+});
+
+</script>

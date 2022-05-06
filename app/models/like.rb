@@ -1,0 +1,7 @@
+# frozen_string_literal: true
+
+class Like < ApplicationRecord
+  validates :user_id, uniqueness: { scope: :micropost_id }
+  belongs_to :user
+  belongs_to :micropost
+end
