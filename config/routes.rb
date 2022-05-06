@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   devise_for :users,
-              path: '',
-              path_names: {sign_in: 'login' ,sign_out: 'logout' ,edit: 'profile',sign_up: 'resgistration'},
-              controllers: {omniauth_callbacks: 'omniauth_callbacks' }
+             path: '',
+             path_names: { sign_in: 'login', sign_out: 'logout', edit: 'profile', sign_up: 'resgistration' },
+             controllers: { omniauth_callbacks: 'omniauth_callbacks' }
   root 'static_pages#home'
   get '/help', to: 'static_pages#help'
   get '/home', to: 'static_pages#home'
@@ -14,8 +16,8 @@ Rails.application.routes.draw do
   end
   resources :users
   resources :microposts
-  resources :relationships, only: [:create, :destroy]
-  resources :likes, only: [:create, :destroy]
+  resources :relationships, only: %i[create destroy]
+  resources :likes, only: %i[create destroy]
   resources :microposts do
     resources :comments
   end
