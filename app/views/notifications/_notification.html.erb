@@ -1,0 +1,8 @@
+<div class="p-4">
+	<%= link_to notification.to_notification.message, notification.to_notification.url %>
+	<% if notification.read? %>
+	  <p style="color: green;"> Read </p>
+	<% else %>
+	  <p style="color: red;"> Unread </p>
+	<% end %>
+</div>

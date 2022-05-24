@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  mount ActionCable.server => '/cable'
+
   devise_for :users,
              path: '',
              path_names: { sign_in: 'login', sign_out: 'logout', edit: 'profile', sign_up: 'resgistration' },
@@ -18,6 +20,7 @@ Rails.application.routes.draw do
   resources :microposts
   resources :relationships, only: %i[create destroy]
   resources :likes, only: %i[create destroy]
+  resources :notifications
   resources :microposts do
     resources :comments
   end
