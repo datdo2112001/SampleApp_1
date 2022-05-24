@@ -37,6 +37,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection', '~> 1.0'
 gem 'rolify'
+gem 'rubocop'
 gem 'will_paginate'
 
 # Use Active Storage variant
