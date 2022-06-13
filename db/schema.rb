@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_220_502_190_750) do
+ActiveRecord::Schema.define(version: 20_220_519_150_200) do
   create_table 'active_storage_attachments', force: :cascade do |t|
     t.string 'name', null: false
     t.string 'record_type', null: false
@@ -70,6 +70,18 @@ ActiveRecord::Schema.define(version: 20_220_502_190_750) do
     t.datetime 'updated_at', precision: 6, null: false
     t.index %w[user_id created_at], name: 'index_microposts_on_user_id_and_created_at'
     t.index ['user_id'], name: 'index_microposts_on_user_id'
+  end
+
+  create_table 'notifications', force: :cascade do |t|
+    t.string 'recipient_type', null: false
+    t.integer 'recipient_id', null: false
+    t.string 'type', null: false
+    t.json 'params'
+    t.datetime 'read_at'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['read_at'], name: 'index_notifications_on_read_at'
+    t.index %w[recipient_type recipient_id], name: 'index_notifications_on_recipient'
   end
 
   create_table 'relationships', force: :cascade do |t|
