@@ -1,0 +1,6 @@
+<% if message.user != nil %> 
+  <p>
+    <span class="user"><%= link_to message.user.name, message.user %>:</span>
+	  <%= message.content %>
+  </p>
+<% end %>

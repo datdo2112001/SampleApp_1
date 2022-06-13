@@ -1,0 +1,8 @@
+<li>
+  <% room.participants.each do |p| %>
+  	<% if p.user_id != current_user.id %>
+  		<%= link_to room.name, p.user %>
+  		<% break %>
+  	<% end %>
+  <% end %>
+</li>

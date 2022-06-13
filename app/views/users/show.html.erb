@@ -10,6 +10,7 @@
     <section class="stats">
 	  <%= render 'shared/stats' %>
     </section>
+   	<button onclick="openChatbox()" class="btn btn-primary"> Send Message </button>
   </aside>
 	<div class="col-md-8">
 	  <%= render 'follow_form' if user_signed_in? %>
@@ -22,3 +23,46 @@
 	  <% end %>
 	</div>
 </div>
+<div id="chatbox" style="display: none;">
+  <button class="nut-mo-chatbox" onclick="openForm()"> Chat </button>
+  <div class="Chatbox" id="myForm">
+    <%= form_with model: @message, local: false, class: "form-container" do |form| %>
+      <h1>Chatbox</h1>
+      <%= form.label :content, 'Chat:' %>
+      <%= form.text_area :content %>
+      <%= form.hidden_field :chatroom_id, value: "#{@chatroom.id}" %>
+      <%= form.hidden_field :receiver, value: "#{@user.id}" %>
+      <%= form.submit "Send", class: "btn" %>
+      <button type="button" class="btn nut-dong-chatbox" onclick="closeForm()">Minimize</button>
+      <button type="button" class="btn nut-dong-chatbox" onclick="closeChatbox()">Close</button>
+    <% end %>
+  </div>
+  <div class="chat" id="myForm1">
+  	<p>Chat:</p>
+    <% if @messages.count != 0 %>
+      <%= render @messages %>
+    <% end %>
+    <p class="message"></p>
+  </div>
+</div>
+<script type="text/javascript">
+    
+  function openForm() {
+    document.getElementById("myForm").style.display = "block";
+    document.getElementById("myForm1").style.display = "block";
+  }
+
+  function closeForm() {
+    document.getElementById("myForm").style.display = "none";
+    document.getElementById("myForm1").style.display = "none";
+  }
+
+  function openChatbox() {
+    document.getElementById("chatbox").style.display = "block";
+  }
+
+  function closeChatbox() {
+    document.getElementById("chatbox").style.display = "none";
+  }
+
+</script>
