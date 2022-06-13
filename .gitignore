@@ -11,6 +11,8 @@ capybara-*.html
 rerun.txt
 pickle-email-*.html
 
+app/javascript/packs/application.js
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
