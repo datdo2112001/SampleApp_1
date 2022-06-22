@@ -6,19 +6,18 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page])
-    @rooms = Room.all
+    @rooms = Room.joins(:participants).where('participants.user_id = ?', current_user.id).preload(:participants)
     @chatroom = Room.new
-    check = false
     @rooms.each do |room|
-      next unless Participant.where(user_id: current_user.id,
-                                    room_id: room.id).exists? && Participant.where(user_id: @user.id,
-                                                                                   room_id: room.id).exists?
-
-      @chatroom = room
-      check = true
-      break
+      room.participants.each do |p|
+        if p.user_id == @user.id
+          @chatroom = room
+          break
+        end
+      end
+      break if @chatroom.persisted?
     end
-    if check == false
+    unless @chatroom.persisted?
       @chatroom = Room.new(name: "#{current_user.name}-#{@user.name}")
       @chatroom.save
       Participant.create(user_id: current_user.id, room_id: @chatroom.id)

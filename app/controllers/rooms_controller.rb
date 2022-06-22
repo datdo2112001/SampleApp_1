@@ -8,10 +8,7 @@ class RoomsController < ApplicationController
   def create; end
 
   def index
-    @rooms = []
-    participants = Participant.all
-    participants.each do |p|
-      @rooms.push(p.room) if p.user_id == current_user.id
-    end
+    participants = Participant.where(user_id: current_user.id)
+    @rooms = participants.map(&:room)
   end
 end
