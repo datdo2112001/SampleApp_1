@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_220_519_150_200) do
+ActiveRecord::Schema.define(version: 20_220_609_044_939) do
   create_table 'active_storage_attachments', force: :cascade do |t|
     t.string 'name', null: false
     t.string 'record_type', null: false
@@ -63,6 +63,16 @@ ActiveRecord::Schema.define(version: 20_220_519_150_200) do
     t.index ['user_id'], name: 'index_likes_on_user_id'
   end
 
+  create_table 'messages', force: :cascade do |t|
+    t.integer 'user_id', null: false
+    t.integer 'room_id', null: false
+    t.text 'content'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['room_id'], name: 'index_messages_on_room_id'
+    t.index ['user_id'], name: 'index_messages_on_user_id'
+  end
+
   create_table 'microposts', force: :cascade do |t|
     t.text 'content'
     t.integer 'user_id', null: false
@@ -84,6 +94,16 @@ ActiveRecord::Schema.define(version: 20_220_519_150_200) do
     t.index %w[recipient_type recipient_id], name: 'index_notifications_on_recipient'
   end
 
+  create_table 'participants', force: :cascade do |t|
+    t.integer 'user_id', null: false
+    t.integer 'room_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['room_id'], name: 'index_participants_on_room_id'
+    t.index %w[user_id room_id], name: 'index_participants_on_user_id_and_room_id', unique: true
+    t.index ['user_id'], name: 'index_participants_on_user_id'
+  end
+
   create_table 'relationships', force: :cascade do |t|
     t.integer 'follower_id'
     t.integer 'followed_id'
@@ -103,6 +123,12 @@ ActiveRecord::Schema.define(version: 20_220_519_150_200) do
     t.index %w[name resource_type resource_id], name: 'index_roles_on_name_and_resource_type_and_resource_id'
     t.index ['name'], name: 'index_roles_on_name'
     t.index %w[resource_type resource_id], name: 'index_roles_on_resource'
+  end
+
+  create_table 'rooms', force: :cascade do |t|
+    t.string 'name'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
   create_table 'users', force: :cascade do |t|
@@ -149,5 +175,9 @@ ActiveRecord::Schema.define(version: 20_220_519_150_200) do
   add_foreign_key 'comments', 'users'
   add_foreign_key 'likes', 'microposts'
   add_foreign_key 'likes', 'users'
+  add_foreign_key 'messages', 'rooms'
+  add_foreign_key 'messages', 'users'
   add_foreign_key 'microposts', 'users'
+  add_foreign_key 'participants', 'rooms'
+  add_foreign_key 'participants', 'users'
 end
