@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :microposts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :notifications, as: :recipient, dependent: :destroy
+  has_many :participants, dependent: :destroy
+  has_many :messages, dependent: :destroy
   has_many :active_relationships, class_name: 'Relationship',
                                   foreign_key: 'follower_id',
                                   dependent: :destroy
