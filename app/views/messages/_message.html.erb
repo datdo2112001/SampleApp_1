@@ -1,0 +1,3 @@
+<% unless message.user.nil? %> 
+  <p><%= link_to message.user.name, message.user %>: <%= message.content %></p>
+<% end %>

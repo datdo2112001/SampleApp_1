@@ -6,6 +6,16 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(page: params[:page])
+    @chatroom = Room.find_by('name = ? OR name = ?', "#{current_user.name}-#{@user.name}",
+                             "#{@user.name}-#{current_user.name}")
+    unless @chatroom.persisted?
+      @chatroom = Room.new(name: "#{current_user.name}-#{@user.name}")
+      @chatroom.save
+      Participant.create(user_id: current_user.id, room_id: @chatroom.id)
+      Participant.create(user_id: @user.id, room_id: @chatroom.id)
+    end
+    @messages = @chatroom.messages
+    @message = @chatroom.messages.build
   end
 
   def index
