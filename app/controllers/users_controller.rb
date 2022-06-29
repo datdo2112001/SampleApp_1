@@ -10,9 +10,10 @@ class UsersController < ApplicationController
                              "#{@user.name}-#{current_user.name}")
     unless @chatroom.persisted?
       @chatroom = Room.new(name: "#{current_user.name}-#{@user.name}")
-      @chatroom.save
-      Participant.create(user_id: current_user.id, room_id: @chatroom.id)
-      Participant.create(user_id: @user.id, room_id: @chatroom.id)
+      if @chatroom.save
+        Participant.create(user_id: current_user.id, room_id: @chatroom.id)
+        Participant.create(user_id: @user.id, room_id: @chatroom.id)
+      end
     end
     @messages = @chatroom.messages
     @message = @chatroom.messages.build
