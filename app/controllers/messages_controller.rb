@@ -6,7 +6,7 @@ class MessagesController < ApplicationController
   def create
     @room = Room.find(params[:message][:chatroom_id])
     @receiver = User.find(params[:message][:receiver])
-    if (@room.participants.pluck(:user_id) & [current_user.id, @receiver.id]).any?
+    if ([current_user.id, @receiver.id] - @room.participants.pluck(:user_id)).length == 0 
       @message = @room.messages.build(message_params)
       @message.user = current_user
       respond_to do |format|
