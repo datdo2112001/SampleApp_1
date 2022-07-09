@@ -1,24 +1,16 @@
-# README
+# Social media app (Ruby on Rails)
+App mạng xã hội đơn giản 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Link demo sản phẩm:
 
-Things you may want to cover:
+Các tính năng:
 
-* Ruby version
+- Đăng nhập, đăng ký, kích hoạt tài khoản qua email.
+- Đăng nhập bằng tài khoản facebook, google.
+- Phân quyền, tài khoản admin.
+- Chỉnh sửa profile, thông tin tài khoản.
+- Đăng bài post lên trang cá nhân, like và comment bài post.
+- Follow người dùng khác.
+- Thông báo realtime khi có comment, like.
+- Chat giữa các user.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
