@@ -1,11 +1,11 @@
-# Social media app (Ruby on Rails)
+# Social network app (Ruby on Rails)
 App mạng xã hội đơn giản 
 
-Link demo sản phẩm:
+Link demo sản phẩm: https://youtu.be/puEUt8fDqTU
 
 Các tính năng:
 
-- Đăng nhập, đăng ký, kích hoạt tài khoản qua email.
+- Đăng nhập, đăng ký tài khoản.
 - Đăng nhập bằng tài khoản facebook, google.
 - Phân quyền, tài khoản admin.
 - Chỉnh sửa profile, thông tin tài khoản.
